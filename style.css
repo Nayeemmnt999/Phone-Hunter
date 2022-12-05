@@ -1,3 +1,10 @@
 body{
-    background-color: #CFFDE1;
+    background-color: #F5EBE0;
+}
+#card-img{
+    height: 400px;
+}
+#nav{
+    background-color:#554994 ;
+    color: aliceblue;
 }
