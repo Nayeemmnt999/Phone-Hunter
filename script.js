@@ -13,6 +13,7 @@ const phoneData = phones => {
    
     const display = document.getElementById('display-data');
     display.textContent = '' ;
+    phones = phones.slice(0, 20)
     phones.forEach(phone =>{
         console.log(phone);
         const createDiv = document.createElement('div');
