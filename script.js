@@ -12,6 +12,7 @@ const loadData = async(searchText) =>{
 const phoneData = phones => {
    
     const display = document.getElementById('display-data');
+    display.textContent = '' ;
     phones.forEach(phone =>{
         console.log(phone);
         const createDiv = document.createElement('div');
