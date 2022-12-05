@@ -14,6 +14,10 @@ const phoneData = phones => {
     const display = document.getElementById('display-data');
     display.textContent = '' ;
     phones = phones.slice(0, 20)
+    const noPhone = document.getElementById('not-found-message')
+    if(phones.length === 0){
+        noPhone.classList.remove('d-none')
+    }
     phones.forEach(phone =>{
         console.log(phone);
         const createDiv = document.createElement('div');
