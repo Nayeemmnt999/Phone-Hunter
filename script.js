@@ -18,6 +18,9 @@ const phoneData = phones => {
     if(phones.length === 0){
         noPhone.classList.remove('d-none')
     }
+    else{
+      noPhone.classList.add('d-none')
+    }
     phones.forEach(phone =>{
         console.log(phone);
         const createDiv = document.createElement('div');
@@ -43,4 +46,4 @@ document.getElementById('search-btn').addEventListener('click', function(){
   loadData(searchValue) 
 })
 
-loadData()
+loadData(phone)
