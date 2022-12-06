@@ -38,12 +38,27 @@ const phoneData = phones => {
         `;
         display.appendChild(createDiv)
     })
+    isLoader(false)
 }
 
 document.getElementById('search-btn').addEventListener('click', function(){
+  isLoader(true)
   const searchField = document.getElementById('search-field');
   const searchValue = searchField.value;
   loadData(searchValue) 
 })
 
-loadData(phone)
+const isLoader = load => {
+  const getLoader = document.getElementById('loder') ;
+  if(load){
+    getLoader.classList.remove('d-none')
+  }
+  else{
+    getLoader.classList.add('d-none')
+  }
+
+
+
+}
+
+loadData()
