@@ -3,17 +3,27 @@
 //     .then(res => res.json())
 //     .then(data => phoneData(data.data))
 // }
-const loadData = async(searchText) =>{
+const loadData = async(searchText, dataLimit) =>{
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     const res = await fetch(url);
     const data = await res.json();
-    phoneData(data.data);
+    phoneData(data.data , dataLimit);
 }
-const phoneData = phones => {
+const phoneData = (phones , dataLimit)=> {
    
     const display = document.getElementById('display-data');
     display.textContent = '' ;
-    phones = phones.slice(0, 20)
+
+    const showMore = document.getElementById('show-more');
+    if( dataLimit && phones.length > 10){
+      phones = phones.slice(0, 10)
+      
+      showMore.classList.remove('d-none')
+    }
+    else{
+      showMore.classList.add('d-none')
+    }
+    
     // not found massage 
     const noPhone = document.getElementById('not-found-message')
     if(phones.length === 0){
@@ -21,11 +31,6 @@ const phoneData = phones => {
     }
     else{
       noPhone.classList.add('d-none')
-    }
-    // show more button 
-    const showMore = document.getElementById('show-more');
-    if(phones.length === 20){
-        showMore.classList.remove('d-none')
     }
 
     phones.forEach(phone =>{
@@ -49,11 +54,16 @@ const phoneData = phones => {
 }
 
 document.getElementById('search-btn').addEventListener('click', function(){
-  isLoader(true)
+  processBtnSearch(10)
+})
+
+// btn serach function 
+const processBtnSearch = (dataLimit) => {
+      isLoader(true)
   const searchField = document.getElementById('search-field');
   const searchValue = searchField.value;
-  loadData(searchValue) 
-})
+  loadData(searchValue , dataLimit)
+}
 
 const isLoader = load => {
   const getLoader = document.getElementById('loder') ;
@@ -63,9 +73,9 @@ const isLoader = load => {
   else{
     getLoader.classList.add('d-none')
   }
-
-
-
 }
+document.getElementById('show-more').addEventListener('click', function(){
+  processBtnSearch()
+})
 
 loadData()
