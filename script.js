@@ -14,6 +14,7 @@ const phoneData = phones => {
     const display = document.getElementById('display-data');
     display.textContent = '' ;
     phones = phones.slice(0, 20)
+    // not found massage 
     const noPhone = document.getElementById('not-found-message')
     if(phones.length === 0){
         noPhone.classList.remove('d-none')
@@ -21,6 +22,12 @@ const phoneData = phones => {
     else{
       noPhone.classList.add('d-none')
     }
+    // show more button 
+    const showMore = document.getElementById('show-more');
+    if(phones.length === 20){
+        showMore.classList.remove('d-none')
+    }
+
     phones.forEach(phone =>{
         console.log(phone);
         const createDiv = document.createElement('div');
