@@ -42,7 +42,7 @@ const phoneData = (phones , dataLimit)=> {
         <div class="card-body">
           <h5 class="card-title">${phone.phone_name}</h5>
           <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <button class = "btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show more</button>
+          <button onclick = "showMoreDetailsApi('${phone.slug})" class = "btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show more</button>
         </div>
       </div>
         `;
@@ -84,18 +84,26 @@ document.getElementById('show-more').addEventListener('click', function(){
 
 
 
-const showMoreDetailsApi = async id =>{
-  const url = `https://openapi.programming-hero.com/api/phone/${id}`
+const showMoreDetailsApi = async id=>{
+  const url = ` https://openapi.programming-hero.com/api/phone/${id}`
   const res = await fetch(url);
   const data = await res.json();
-  showMoreDetails(data.data);
+  console.log(data);
 }
 
 const showMoreDetails = phone => {
   console.log(phone);
   const phoneTitle = document.getElementById('staticBackdropLabel');
-  phoneTitle.innerText = phone
+  phoneTitle.innerText = phone.name;
+
+  const phoneDetails = document.getElementById('phone-details');
+    console.log(phone.mainFeatures.sensors[0]);
+    phoneDetails.innerHTML = `
+        <p>Release Date: ${phone.releaseDate ? phone.releaseDate : 'No Release Date Found'}</p>
+        <p>Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : 'No Storage Information '}</p>
+        <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
+        <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
+    `
 
 }
-
 loadData('phone')
