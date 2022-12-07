@@ -34,7 +34,6 @@ const phoneData = (phones , dataLimit)=> {
     }
 
     phones.forEach(phone =>{
-        console.log(phone);
         const createDiv = document.createElement('div');
         createDiv.classList.add('col');
         createDiv.innerHTML = `
@@ -43,9 +42,8 @@ const phoneData = (phones , dataLimit)=> {
         <div class="card-body">
           <h5 class="card-title">${phone.phone_name}</h5>
           <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <button class = "btn btn-primary">Buy Now </button>
+          <button class = "btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show more</button>
         </div>
-        
       </div>
         `;
         display.appendChild(createDiv)
@@ -56,7 +54,12 @@ const phoneData = (phones , dataLimit)=> {
 document.getElementById('search-btn').addEventListener('click', function(){
   processBtnSearch(10)
 })
-
+// for enter event 
+document.getElementById('search-field').addEventListener('keypress', function(e){
+  if(e.key === 'Enter'){
+    processBtnSearch(10)
+  }
+})
 // btn serach function 
 const processBtnSearch = (dataLimit) => {
       isLoader(true)
@@ -78,4 +81,21 @@ document.getElementById('show-more').addEventListener('click', function(){
   processBtnSearch()
 })
 
-loadData()
+
+
+
+const showMoreDetailsApi = async id =>{
+  const url = `https://openapi.programming-hero.com/api/phone/${id}`
+  const res = await fetch(url);
+  const data = await res.json();
+  showMoreDetails(data.data);
+}
+
+const showMoreDetails = phone => {
+  console.log(phone);
+  const phoneTitle = document.getElementById('staticBackdropLabel');
+  phoneTitle.innerText = phone
+
+}
+
+loadData('phone')
